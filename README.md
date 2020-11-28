@@ -1,6 +1,6 @@
 # @vlsergey/react-bootstrap-button-with-spinner
 
-Ready-to-use wrapper for react-bootstrap Button component. Automatically disables button and displays spinner inside until async `onClick` handler is completed.
+Ready-to-use wrapper for [react-bootstrap Button component](https://react-bootstrap.github.io/components/buttons/). Automatically disables button and displays spinner inside until async `onClick` handler is completed. I.e. until `Promise` returned by `onClick` is resolved or rejected.
 
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
@@ -17,7 +17,7 @@ npm i --save-dev @vlsergey/react-bootstrap-button-with-spinner
 
 # Usage
 ```jsx
-// Replace import Button from "react-bootstrap/Button" with
+// Replace 'import Button from "react-bootstrap/Button"' with"
 import Button from "@vlsergey/react-bootstrap-button-with-spinner"
 
 <Button onClick={this.handleClick}>Button text</Button>
@@ -31,15 +31,9 @@ No additional configuration is required.
 
 # Props
 | Property        | Default value | Description |
-| --------------- |:-------------:| ----------- |
-| `spinner`       | `<Spinner
-  animation="border"
-  aria-hidden="true"
-  as="span"
-  role="status"
-  size="sm"
-  {...spinnerProps} />`      | Allow to replace default spinner with something else |
-| `spinnerProps`  | `{}`          | Allow to override default Spinner properties.                |
+| --------------- | ------------- | ----------- |
+| `spinner`       | `<Spinner animation="border" aria-hidden="true" as="span" role="status" size="sm" {...spinnerProps} />` | Allow to replace default [Spinner](https://react-bootstrap.github.io/components/spinners/) with something else |
+| `spinnerProps`  | `{}`          | Allow to override default [Spinner](https://react-bootstrap.github.io/components/spinners/) properties.                |
 
 [npm-image]: https://img.shields.io/npm/v/@vlsergey/react-bootstrap-button-with-spinner.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/@vlsergey/react-bootstrap-button-with-spinner
