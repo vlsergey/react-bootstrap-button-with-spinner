@@ -2,6 +2,7 @@
 
 import * as Types from './PropsType';
 import React, { PureComponent } from 'react';
+import { boundMethod } from 'autobind-decorator';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 
@@ -11,16 +12,12 @@ type StateType = {
 
 export default class ButtonWithSpinner extends PureComponent<Types.PropsType, StateType> {
 
-  state = {
+  state : StateType = {
     inProgress: false,
-  }
+  };
 
-  constructor() {
-    super();
-    this.handleClick = this.handleClick.bind( this );
-  }
-
-  async handleClick( ) {
+  @boundMethod
+  async handleClick( ) : any {
     const { onClick } = this.props;
     this.setState( { inProgress: true } );
     try {
@@ -32,7 +29,7 @@ export default class ButtonWithSpinner extends PureComponent<Types.PropsType, St
     }
   }
 
-  render() {
+  render() : any {
     const { children, disabled, spinner, spinnerProps, ...etc } = this.props;
     const { inProgress } = this.state;
 

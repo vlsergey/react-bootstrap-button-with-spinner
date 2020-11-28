@@ -13,8 +13,8 @@ describe( 'ButtonWithSpinner', () => {
 
   it( 'display spinner until onClick is completed', async() => {
 
-    let resolve;
-    const promise = new Promise( r => {
+    let resolve : () => any = () => {};
+    const promise : Promise< any > = new Promise( ( r : () => any ) => {
       resolve = r;
     } );
     const handler = () => promise;
