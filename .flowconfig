@@ -1,0 +1,6 @@
+[ignore]
+.*/lib/.*\.js\.flow
+
+[lints]
+untyped-import=off
+unclear-type=off
