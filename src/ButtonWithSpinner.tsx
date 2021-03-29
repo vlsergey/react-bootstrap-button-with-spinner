@@ -1,35 +1,40 @@
-// @flow
-
-import * as Types from './PropsType';
-import React, { PureComponent } from 'react';
+import React, { MouseEvent, PureComponent, ReactNode } from 'react';
 import { boundMethod } from 'autobind-decorator';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 
+interface PropsType {
+  children? : ReactNode,
+  disabled? : boolean,
+  onClick? : ( event: MouseEvent ) => unknown,
+  spinner? : ReactNode,
+  spinnerProps? : unknown,
+}
+
 type StateType = {
-  inProgress? : ?boolean,
+  inProgress? : boolean,
 };
 
-export default class ButtonWithSpinner extends PureComponent<Types.PropsType, StateType> {
+export default class ButtonWithSpinner extends PureComponent<PropsType, StateType> {
 
   state : StateType = {
     inProgress: false,
   };
 
   @boundMethod
-  async handleClick( ) : any {
+  async handleClick( event: MouseEvent ) : Promise<unknown> {
     const { onClick } = this.props;
     this.setState( { inProgress: true } );
     try {
       if ( onClick ) {
-        return await onClick( ...arguments );
+        return await onClick( event );
       }
     } finally {
       this.setState( { inProgress: false } );
     }
   }
 
-  render() : any {
+  render() : ReactNode {
     const { children, disabled, spinner, spinnerProps, ...etc } = this.props;
     const { inProgress } = this.state;
 
