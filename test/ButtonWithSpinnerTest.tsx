@@ -37,4 +37,14 @@ describe( 'ButtonWithSpinner', () => {
     assert.equal( spinnersAfterResolve.length, 0 );
 
   } );
+
+  it( 'Correctly passes properties to react bootstrap Button', () => {
+    const rendered = ReactTestUtils.renderIntoDocument( <ButtonWithSpinner as="div">
+      {'Hello, World!'}
+    </ButtonWithSpinner> ) as unknown as ButtonWithSpinner;
+
+    const divNode = ReactTestUtils.findRenderedDOMComponentWithTag( rendered, 'div' );
+    assert.equal( divNode.textContent, 'Hello, World!' );
+  } );
+
 } );

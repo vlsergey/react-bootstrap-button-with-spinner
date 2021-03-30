@@ -2,17 +2,15 @@ import React, { MouseEvent, PureComponent, ReactNode } from 'react';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 
-interface PropsType {
-  children? : ReactNode,
-  disabled? : boolean,
-  onClick? : ( event: MouseEvent ) => unknown,
-  spinner? : ReactNode,
-  spinnerProps? : unknown,
+interface PropsType extends React.ComponentPropsWithoutRef<Button> {
+  disabled? : boolean;
+  spinner? : ReactNode;
+  spinnerProps? : unknown;
 }
 
-type StateType = {
-  inProgress? : boolean,
-};
+interface StateType {
+  inProgress? : boolean;
+}
 
 export default class ButtonWithSpinner extends PureComponent<PropsType, StateType> {
 
@@ -20,12 +18,14 @@ export default class ButtonWithSpinner extends PureComponent<PropsType, StateTyp
     inProgress: false,
   };
 
-  handleClick = async( event: MouseEvent ) : Promise<unknown> => {
+  handleClick = async( event: MouseEvent ) : Promise< unknown > => {
     const { onClick } = this.props;
     this.setState( { inProgress: true } );
     try {
       if ( onClick ) {
-        return await onClick( event );
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        const result : unknown = await onClick( event );
+        return result;
       }
     } finally {
       this.setState( { inProgress: false } );
