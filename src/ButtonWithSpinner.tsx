@@ -1,5 +1,4 @@
 import React, { MouseEvent, PureComponent, ReactNode } from 'react';
-import { boundMethod } from 'autobind-decorator';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 
@@ -21,8 +20,7 @@ export default class ButtonWithSpinner extends PureComponent<PropsType, StateTyp
     inProgress: false,
   };
 
-  @boundMethod
-  async handleClick( event: MouseEvent ) : Promise<unknown> {
+  handleClick = async( event: MouseEvent ) : Promise<unknown> => {
     const { onClick } = this.props;
     this.setState( { inProgress: true } );
     try {
