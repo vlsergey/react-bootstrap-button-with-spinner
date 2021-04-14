@@ -3,10 +3,11 @@
   "version": "1.1.1",
   "browserslist": "defaults, not dead",
   "description": "Wrapper around React Bootstrap Button component with spinner and auto-disabled functionality (to prevent doubleclick) ",
-  "main": "lib/index.js",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
   "scripts": {
     "clean": "rimraf lib/",
-    "build": "cross-env NODE_ENV=production tsc -p ./src",
+    "build": "cross-env NODE_ENV=production tsc -p ./src/tsconfig-cjs.json && cross-env NODE_ENV=production tsc -p ./src/tsconfig-esm.json",
     "build:watch": "cross-env NODE_ENV=development tsc -w -p ./src",
     "eslint:check": "eslint --ignore-pattern \"!.eslintrc.js\" .eslintrc.js karma.conf.js src/**/*.ts src/**/*.tsx test/**/*.js test/**/*.tsx",
     "eslint:fix": "eslint --ignore-pattern \"!.eslintrc.js\" --fix .eslintrc.js karma.conf.js src/**/*.ts src/**/*.tsx test/**/*.js test/**/*.tsx",
