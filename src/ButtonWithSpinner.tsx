@@ -2,7 +2,7 @@ import React, { MouseEvent, PureComponent, ReactNode } from 'react';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 
-interface PropsType extends React.ComponentPropsWithoutRef<Button> {
+export interface PropsType extends React.ComponentPropsWithoutRef<Button> {
   disabled? : boolean;
   spinner? : ReactNode;
   spinnerProps? : unknown;

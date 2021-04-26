@@ -1,3 +1,4 @@
-import ButtonWithSpinner from './ButtonWithSpinner';
+import ButtonWithSpinner, { PropsType } from './ButtonWithSpinner';
 
 export default ButtonWithSpinner;
+export { PropsType };
