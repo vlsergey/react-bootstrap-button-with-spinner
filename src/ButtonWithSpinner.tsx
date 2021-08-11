@@ -14,7 +14,7 @@ interface StateType {
 
 export default class ButtonWithSpinner extends PureComponent<PropsType, StateType> {
 
-  state: StateType = {
+  override state: StateType = {
     inProgress: false,
   };
 
@@ -27,12 +27,13 @@ export default class ButtonWithSpinner extends PureComponent<PropsType, StateTyp
         const result: unknown = await onClick(event);
         return result;
       }
+      return;
     } finally {
       this.setState({inProgress: false});
     }
   };
 
-  render (): ReactNode {
+  override render (): ReactNode {
     const {children, disabled, spinner, spinnerProps, ...etc} = this.props;
     const {inProgress} = this.state;
 
