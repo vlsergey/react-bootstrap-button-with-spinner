@@ -1,57 +1,50 @@
-import React, {MouseEvent, PureComponent, ReactNode} from 'react';
+import React, {MouseEvent, ReactNode, useCallback, useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 
-export interface PropsType extends React.ComponentPropsWithoutRef<Button> {
+export interface PropsType extends React.ComponentProps<Button> {
   disabled?: boolean;
+  onClick?: React.ComponentProps<Button>['onClick'] | ((event: MouseEvent<HTMLElement>) => Promise<unknown>);
   spinner?: ReactNode;
   spinnerProps?: unknown;
 }
 
-interface StateType {
-  inProgress?: boolean;
-}
+const ButtonWithSpinner = ({
+  children,
+  disabled,
+  onClick,
+  spinner,
+  spinnerProps,
+  ...etc
+}: PropsType) => {
+  const [inProgress, setInProgress] = useState<boolean>(false);
 
-export default class ButtonWithSpinner extends PureComponent<PropsType, StateType> {
-
-  override state: StateType = {
-    inProgress: false,
-  };
-
-  handleClick = async (event: MouseEvent): Promise< unknown > => {
-    const {onClick} = this.props;
-    this.setState({inProgress: true});
+  const handleClick = useCallback(async (event: MouseEvent<HTMLElement>): Promise< unknown > => {
+    setInProgress(true);
     try {
-      if (onClick) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-        const result: unknown = await onClick(event);
-        return result;
-      }
-      return;
+      if (!onClick) return;
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      return await onClick(event);
     } finally {
-      this.setState({inProgress: false});
+      setInProgress(false);
     }
-  };
+  }, [onClick, setInProgress]);
 
-  override render (): ReactNode {
-    const {children, disabled, spinner, spinnerProps, ...etc} = this.props;
-    const {inProgress} = this.state;
+  const actualSpinner = inProgress && (spinner || <>
+    <Spinner
+      animation="border"
+      aria-hidden="true"
+      as="span"
+      role="status"
+      size="sm"
+      {...spinnerProps} />
+    {' '}
+  </>);
 
-    const actualSpinner = inProgress && (spinner || <>
-      <Spinner
-        animation="border"
-        aria-hidden="true"
-        as="span"
-        role="status"
-        size="sm"
-        {...spinnerProps} />
-      {' '}
-    </>);
+  return <Button {...etc} disabled={disabled || inProgress} onClick={handleClick}>
+    {actualSpinner}
+    {children}
+  </Button>;
+};
 
-    return <Button {...etc} disabled={disabled || inProgress} onClick={this.handleClick}>
-      {actualSpinner}
-      {children}
-    </Button>;
-  }
-
-}
+export default React.memo(ButtonWithSpinner);
