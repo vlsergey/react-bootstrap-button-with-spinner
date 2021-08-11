@@ -1,10 +1,14 @@
-/* eslint-disable */
+/* eslint @typescript-eslint/no-unsafe-member-access: 0 */
+/* eslint @typescript-eslint/no-unsafe-call: 0 */
+
+/* eslint-disable-next-line */
 const imported = require( '@vlsergey/js-config' ).karma;
-module.exports = function( config ) {
+/* eslint-disable-next-line no-undef */
+module.exports = function (config) {
   imported(config);
-  config.set( {
+  config.set({
     files: [
       'test/**/*Test.tsx',
     ],
-  } );
+  });
 };
